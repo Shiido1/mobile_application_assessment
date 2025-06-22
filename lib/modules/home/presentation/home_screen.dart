@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:mobile_developer_assessment/common/io/fetch_data.dart';
-import 'package:mobile_developer_assessment/modules/widgets/text_widget.dart';
 
 import '../../../common/io/shared_preferance.dart';
+import '../../widgets/employee_ticket_widget.dart';
 import '../../widgets/text_form_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -86,94 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 lastName.contains(query);
                           })!
                           .map((o) {
-                            return Container(
-                              width: double.infinity,
-                              padding: EdgeInsets.all(8),
-                              margin: EdgeInsets.only(top: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color.fromARGB(255, 227, 236, 228),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextView(
-                                    text:
-                                        '${o['first_name']} ${o['last_name']}',
-                                    fontSize: 21.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  SizedBox(height: 10),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TextView(
-                                        text: 'Work Level: ${o['level']}',
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.w200,
-                                      ),
-                                      TextView(
-                                        text: '${o['designation']}',
-                                        fontSize: 15.90,
-                                        fontWeight: FontWeight.w600,
-                                        color: const Color.fromARGB(
-                                          255,
-                                          17,
-                                          47,
-                                          18,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
+                            return EmployeeTicketWidget(o: o);
                           })
                     else
                       ...session.usersData['userData']!.map((o) {
-                        return Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(8),
-                          margin: EdgeInsets.only(top: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color.fromARGB(255, 227, 236, 228),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextView(
-                                text: '${o['first_name']} ${o['last_name']}',
-                                fontSize: 21.0,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextView(
-                                    text: 'Work Level: ${o['level']}',
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w200,
-                                  ),
-                                  TextView(
-                                    text: '${o['designation']}',
-                                    fontSize: 15.90,
-                                    fontWeight: FontWeight.w600,
-                                    color: const Color.fromARGB(
-                                      255,
-                                      17,
-                                      47,
-                                      18,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
+                        return EmployeeTicketWidget(o: o);
                       })
                   else
                     Center(
@@ -193,12 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _chache(data) {
     if (data != null) {
-      print('data');
-
-      print('dat4444444${data['data']}');
       session.usersData = {'userData': data['data']};
-
-      print('dataoooooo${session.usersData}');
     }
   }
 
@@ -206,6 +118,5 @@ class _HomeScreenState extends State<HomeScreen> {
     var v = await fetchDAta();
     _chache(v);
     setState(() {});
-    print('object${session.usersData}');
   }
 }
