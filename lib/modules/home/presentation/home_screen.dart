@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     setState(() {});
                   },
                   child: TextView(
-                    text: 'Clear',
+                    text: 'Clear Filter',
                     fontSize: 15.90,
                     fontWeight: FontWeight.w600,
                     color: const Color.fromARGB(255, 17, 47, 18),
