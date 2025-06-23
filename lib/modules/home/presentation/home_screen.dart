@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:mobile_developer_assessment/common/io/fetch_data.dart';
+import 'package:mobile_developer_assessment/modules/widgets/app_utils.dart';
 
 import '../../../common/io/shared_preferance.dart';
 import '../../widgets/employee_ticket_widget.dart';
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    fetchResponseData();
+    fetchResponseData(context);
     onSetDataPreference();
     super.initState();
   }
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           isFilter
               ? Padding(
-                padding: const EdgeInsets.only(right:8.0),
+                padding: const EdgeInsets.only(right: 8.0),
                 child: GestureDetector(
                   onTap: () {
                     modelList.clear();
@@ -160,12 +161,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           )
                   else
-                    Center(
-                      child: CircularProgressIndicator(
-                        padding: EdgeInsets.only(top: 40),
-                        color: Colors.green,
-                      ),
+                  Center(
+                    child: CircularProgressIndicator(
+                      padding: EdgeInsets.only(top: 40),
+                      color: Colors.green,
                     ),
+                  ),
                 ],
               ),
             ),
@@ -194,9 +195,15 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void fetchResponseData() async {
-    var v = await fetchDAta();
-    _chache(v);
+  void fetchResponseData(context) async {
+    var v = await fetchData();
+    if (v['statusCode'] == 200) {
+      _chache(v);
+    } else {
+      AppUtils.snackbar(context, message: v['message'],error: true);
+    }
+    print('printvvvvv$v');
+
     setState(() {});
   }
 

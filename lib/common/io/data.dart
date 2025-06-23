@@ -126,6 +126,16 @@ class Api{
         "current_salary": "70,000",
         "employment_status": 1
       },
+      {
+        "id" : 19,
+        "first_name" : "Mfon",
+        "last_name": "Uwah",
+        "designation": "ICT Manager",
+        "level": 4,
+        "productivity_score": 94.0,
+        "current_salary": "200,000",
+        "employment_status": 4
+      },
     ]
   };
 }
