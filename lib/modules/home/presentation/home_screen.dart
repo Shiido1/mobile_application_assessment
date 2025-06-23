@@ -23,17 +23,17 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isFilter = false;
 
   List<dynamic> modelList = [];
+  List<String> designation = [];
 
   @override
   void initState() {
     fetchResponseData(context);
-    onSetDataPreference();
+
     super.initState();
   }
 
   onSetDataPreference() async {
     await Future.delayed(Duration(seconds: 3), () {
-      setState(() {});
       getDesignation(session.usersData['userData']);
     });
     return;
@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    onSetDataPreference();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -161,12 +162,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           )
                   else
-                  Center(
-                    child: CircularProgressIndicator(
-                      padding: EdgeInsets.only(top: 40),
-                      color: Colors.green,
+                    Center(
+                      child: CircularProgressIndicator(
+                        padding: EdgeInsets.only(top: 40),
+                        color: Colors.green,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -175,8 +176,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  List<String> designation = [];
 
   List<String> getDesignation(itemList) {
     designation.clear();
@@ -200,9 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (v['statusCode'] == 200) {
       _chache(v);
     } else {
-      AppUtils.snackbar(context, message: v['message'],error: true);
+      AppUtils.snackbar(context, message: v['message'], error: true);
     }
-    print('printvvvvv$v');
 
     setState(() {});
   }
